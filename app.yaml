@@ -1,0 +1,9 @@
+runtime: nodejs14
+service: cheepenary
+instance_class: F2
+env_variables:
+  LOG_LEVEL: 'info'
+  IMAGE_BUCKET: 'images2.agreatertown.com'
+automatic_scaling:
+  min_instances: 2
+  max_instances: 3
