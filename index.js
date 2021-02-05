@@ -12,7 +12,6 @@ const mapz = {
   'stripmall':'https://stripmall.software',
   'rvshare': 'https://d3adfz34ynqwkr.cloudfront.net/image/upload/rvs-images',
   'test': 'https://homepages.cae.wisc.edu/~ece533/images'
-
 }
 
 
@@ -44,25 +43,17 @@ const handleMissing = curry(async (res, parsedUrl, err) => {
     const filename = removeDblSlash(last(last(parsedUrl)))
     const mimeType = mime.lookup(filename);
     logger.debug('Cache miss ' + domain+filename)
-    //const newStream = fetchStream(domain+filename).pipe(_transform(transforms))
-
     res.setHeader('imaginary-status', 'MISSED');
     res.setHeader('content-type', mimeType);
     const inStream = await fetchStream(domain+filename)
     inStream.pipe(_transform(transforms)).pipe(res)
     put(makeBucketName(parsedUrl), inStream.pipe(_transform(transforms)));
 
-
-
-    //return newStream.pipe(res)
-
   } catch {
     res.setHeader('imaginary-status', 'FAIL');
     return res.sendStatus(404)
   }
 })
-
-
 
 
 if ( process.env.NODE_ENV != 'test')
