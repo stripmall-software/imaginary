@@ -6,4 +6,4 @@ env_variables:
   IMAGE_BUCKET: 'images2.agreatertown.com'
 automatic_scaling:
   min_instances: 2
-  max_instances: 3
+  max_instances: 4
