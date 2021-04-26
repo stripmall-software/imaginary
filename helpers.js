@@ -4,9 +4,9 @@ const {map, curry, split, replace, pipe, isNil, find, toPairs, reject, anyPass,
     isEmpty, equals, join, last, head} = require('rambda')
 
 
-const parseUrl= curry((mapz, url) => 
+const parseUrl= curry((mapz, url) =>
     pipe(
-        toPairs, 
+        toPairs,
         map(trySplit(url)),
         find(_in=>!isNil(_in))
         )(mapz)
@@ -35,10 +35,12 @@ const makeBucketName = (_in) =>{
 }
 
 const fetchStream = async url => {
-    const response = await fetch(url,  { signal: timeoutSignal(1500) });
+    const response = await fetch(url,  { signal: timeoutSignal(5000) });
     if (!response.ok) throw new Error(`unexpected response ${response.statusText}`);
     return await response.body
-} 
+}
+
+
 
 const breakOnTruthy =  (f, errorMessage) => {
     return _in => {

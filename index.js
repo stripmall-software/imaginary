@@ -11,9 +11,10 @@ const mapz = {
   'listhub':'http://photos.listhub.net',
   'stripmall':'https://stripmall.software',
   'rvshare': 'https://d3adfz34ynqwkr.cloudfront.net/image/upload/rvs-images',
-  'test': 'https://homepages.cae.wisc.edu/~ece533/images'
+  'test': 'https://homepages.cae.wisc.edu/~ece533/images',
+  'agt': 'https://images.agreatertown.com/_sponsors_',
+  'devagt': 'https://images_dev.agreatertown.com/_sponsors_'
 }
-
 
 const app = express()
 const PORT = process.env.PORT || 8080;
