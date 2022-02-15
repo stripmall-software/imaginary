@@ -8,12 +8,14 @@ const parseUrl= curry((mapz, url) =>
     pipe(
         toPairs,
         map(trySplit(url)),
+        each=>{console.log(each); return each;},
         find(_in=>!isNil(_in))
         )(mapz)
 )
 
 const trySplit = curry((url,[k, v]) => {
     const candidate = split(k, url)
+    console.log(k, url, candidate)
     if (candidate.length === 2)
         return [[k, v], candidate]
 })

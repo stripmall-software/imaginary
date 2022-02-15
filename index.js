@@ -8,12 +8,15 @@ const {logger} = require('./logger')
 
 const mapz = {
   'listhub_broker_logos':'http://brokerlogos.listhub.net',
+  'listhubnew':'http://lh.rdcpix.com',
   'listhub':'http://photos.listhub.net',
   'stripmall':'https://stripmall.software',
   'rvshare': 'https://d3adfz34ynqwkr.cloudfront.net/image/upload/rvs-images',
   'test': 'https://homepages.cae.wisc.edu/~ece533/images',
   'agt': 'https://images.agreatertown.com/_sponsors_',
-  'dev': 'https://images_dev.agreatertown.com/_sponsors_'
+  'dev': 'https://images_dev.agreatertown.com/_sponsors_',
+  'thumbnailslocal': 'https://images_dev.agreatertown.com/thumbnails',
+  'thumbnails': 'https://images.agreatertown.com/thumbnails',
 }
 
 const app = express()

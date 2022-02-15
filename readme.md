@@ -1,4 +1,4 @@
-#imaginary.stripmall.software
+st#imaginary.stripmall.software
 
 This is, or hopefully one day, will be a full drop in replacement for cloudinary, the most excellent, albeit expensive image transformation and hosting service.
 
