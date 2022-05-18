@@ -9,7 +9,7 @@ I've released this under the Open Software License 3.0  in order to encourage pe
 
 I put this into production on gcloud, using the google application engine and gcloud buckets for storage. Putting this behind cloudflare caching makes the solution almost as performant as cloudinary. Tooling for gcloud is included in the repository.
 
-![Alt text]("gcloud.png")
+![Alt text](gcloud.png)
 
 Doing this, lowered my monthly image processing costs from over a thousand dollars to about one hundred and fifty dollars.
 
