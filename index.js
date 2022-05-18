@@ -6,18 +6,8 @@ const {transform, _transform} = require('./transformer')
 const {getStream,  put, bucket} = require('./streamer').init(process.env.IMAGE_BUCKET)
 const {logger} = require('./logger')
 
-const mapz = {
-  'listhub_broker_logos':'http://brokerlogos.listhub.net',
-  'listhubnew':'http://lh.rdcpix.com',
-  'listhub':'http://photos.listhub.net',
-  'stripmall':'https://stripmall.software',
-  'rvshare': 'https://d3adfz34ynqwkr.cloudfront.net/image/upload/rvs-images',
-  'test': 'https://homepages.cae.wisc.edu/~ece533/images',
-  'agt': 'https://images.agreatertown.com/_sponsors_',
-  'dev': 'https://images_dev.agreatertown.com/_sponsors_',
-  'thumbnailslocal': 'https://images_dev.agreatertown.com/thumbnails',
-  'thumbnails': 'https://images.agreatertown.com/thumbnails',
-}
+//imaginary requires a json file mapping directories to remote resources. A sample can be found in __urlMap.json
+const mapz = require('./urlMap.json');
 
 const app = express()
 const PORT = process.env.PORT || 8080;
