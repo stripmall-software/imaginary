@@ -24,6 +24,7 @@ app.get('/*', async (req, res) => {
   }
   logger.debug('handling  ' + last(last(info)))
   const filename = makeBucketName(info)
+  logger.debug(`filename: ${filename}`)
 
   res.setHeader('content-type', mime.lookup(filename));
   res.setHeader('imaginary-status', 'HIT');
