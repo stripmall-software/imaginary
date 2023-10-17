@@ -21,3 +21,6 @@ I look forward to seeing contributions on this front. If you come up with one, a
 
 
 
+## Deployment
+
+gcloud run deploy --source .

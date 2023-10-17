@@ -12,6 +12,10 @@ const mapz = require('./urlMap.json');
 const app = express()
 const PORT = process.env.PORT || 8080;
 
+app.get('/test2', (req, res) => {
+  res.send('foo')
+})
+
 app.get('/test', (req, res) => {
   res.send('ok')
 })
