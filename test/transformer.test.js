@@ -1,5 +1,5 @@
 const {fetchStream} = require('../helpers')
-const {constructOptions,transform} = require('../transformer')
+const {constructOptions,transform, getFileFormat} = require('../transformer')
 
 
 
@@ -20,6 +20,11 @@ describe('It pulls out the configs', () => {
     it ('handles one value', async ()=> {
         const res = constructOptions([ 'w_700' ])
         expect(res).toEqual({ width: 700 })
+    })
+    it ('handles the file 2', async ()=> {
+        const res = getFileFormat([ 'w_700', 'f_webp' ])
+        expect(res).toEqual('webp')
+        expect(constructOptions([ 'w_700', 'f_webp'])).toEqual({ width: 700 })
     })
 
 })

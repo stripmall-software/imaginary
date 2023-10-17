@@ -2,8 +2,8 @@ const express = require('express')
 const {last, head, curry} = require('rambda')
 const  mime = require('mime-types')
 const {parseUrl, extractTransforms, fetchStream, makeBucketName, removeDblSlash} = require('./helpers')
-const {transform, _transform} = require('./transformer')
-const {getStream,  put, bucket} = require('./streamer').init(process.env.IMAGE_BUCKET)
+const {getFileFormat, _transform, _transformWebp, _transformAvif} = require('./transformer')
+//const {getStream,  put, bucket} = require('./streamer').init(process.env.IMAGE_BUCKET)
 const {logger} = require('./logger')
 
 //imaginary requires a json file mapping directories to remote resources. A sample can be found in __urlMap.json
@@ -23,32 +23,35 @@ app.get('/*', async (req, res) => {
     return res.sendStatus(400);
   }
   logger.debug('handling  ' + last(last(info)))
-  const filename = makeBucketName(info)
-  logger.debug(`filename: ${filename}`)
 
-  res.setHeader('content-type', mime.lookup(filename));
-  res.setHeader('imaginary-status', 'HIT');
-  return getStream(filename, res).then(_=> logger.debug('Cache hit ' +  filename)).catch(handleMissing(res, info))
+  return handleFile(res, info)
 })
 
-const handleMissing = curry(async (res, parsedUrl, err) => {
+const handleFile = async (res, parsedUrl) => {
   try {
     const domain = last(head(parsedUrl))
     const transforms = extractTransforms(head(last(parsedUrl)))
+    console.log(transforms)
+    const fileFormat = getFileFormat(transforms)
     const filename = removeDblSlash(last(last(parsedUrl)))
-    const mimeType = mime.lookup(filename);
-    logger.debug('Cache miss ' + domain+filename)
-    res.setHeader('imaginary-status', 'MISSED');
+    const mimeType = fileFormat?mime.lookup(fileFormat):mime.lookup(filename);
     res.setHeader('content-type', mimeType);
     const inStream = await fetchStream(domain+filename)
-    inStream.pipe(_transform(transforms)).pipe(res)
-    put(makeBucketName(parsedUrl), inStream.pipe(_transform(transforms)));
+    if(fileFormat==='avif')
+      inStream.pipe(_transformAvif(transforms)).pipe(res)
+    else if(fileFormat==='webp') {
+      inStream.pipe(_transformWebp(transforms)).pipe(res)
+    }
+    else
+      inStream.pipe(_transform(transforms)).pipe(res)
+    //put(makeBucketName(parsedUrl), inStream.pipe(_transform(transforms)));
 
-  } catch {
+  } catch (e) {
+    logger.warn(e)
     res.setHeader('imaginary-status', 'FAIL');
     return res.sendStatus(404)
   }
-})
+}
 
 
 if ( process.env.NODE_ENV != 'test')
